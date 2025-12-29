@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ascenso Motor | MasterClass Mecánica de Motos</title>
     
-    <!-- External Scripts (CDNs) -->
+    <!-- Scripts Externos -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Fonts -->
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -84,23 +83,12 @@
         ::-webkit-scrollbar-thumb:hover { background: #FF6B00; }
         html { scroll-behavior: smooth; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body>
     <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-
-        // --- COMPONENTS ---
 
         const Logo = ({ scale = 1, opacity = 0.8 }) => (
             <div className="flex flex-col items-center justify-center leading-none transform origin-left" style={{ transform: `scale(${scale})` }}>
@@ -209,21 +197,23 @@
                 <section id="calculadora" className="py-20 bg-darker">
                     <div className="max-w-6xl mx-auto px-4">
                         <div className="text-center mb-12">
-                            <h2 className="font-orbitron text-3xl md:text-5xl font-bold mb-4 uppercase">EL COSTO DE LA <span className="text-primary">IGNORANCIA</span></h2>
+                            <h2 className="font-orbitron text-2xl md:text-5xl font-bold mb-4 uppercase">EL COSTO DE LA <span className="text-primary">IGNORANCIA</span></h2>
                             <p className="text-gray-400 font-inter">Compara cuánto estás perdiendo cada año por no saber arreglar tu propia moto.</p>
                         </div>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div className="space-y-8 p-8 card-industrial rounded-3xl">
                                 <div>
-                                    <label className="block font-orbitron text-sm uppercase mb-4 tracking-widest text-primary">Gasto Anual: <span className="text-white text-2xl ml-2">${spending} USD</span></label>
+                                    <label className="block font-orbitron text-sm uppercase mb-4 tracking-widest text-primary">Gasto Anual: <span className="text-white text-xl md:text-2xl ml-2">${spending} USD</span></label>
                                     <input type="range" min="150" max="2000" step="50" value={spending} onChange={(e) => setSpending(parseInt(e.target.value))} className="w-full h-2 bg-dark rounded-lg appearance-none cursor-pointer accent-primary" />
                                 </div>
                                 <div className="bg-white/5 p-6 rounded-2xl border border-white/5 text-center">
                                     <p className="text-sm text-gray-400 uppercase font-orbitron mb-1">Ahorro potencial el 1er año:</p>
-                                    <p className="text-5xl font-black font-orbitron text-primary text-glow-orange">${yearlySavings.toFixed(2)}</p>
+                                    <p className="text-4xl md:text-5xl font-black font-orbitron text-primary" style={{ textShadow: '0 0 10px rgba(255,107,0,0.4)' }}>
+                                        ${yearlySavings.toFixed(2)}
+                                    </p>
                                 </div>
                             </div>
-                            <div className="h-[400px] w-full card-industrial p-6 rounded-3xl relative overflow-hidden">
+                            <div className="h-[350px] md:h-[400px] w-full card-industrial p-6 rounded-3xl relative overflow-hidden">
                                 <canvas ref={chartRef}></canvas>
                             </div>
                         </div>
@@ -272,25 +262,29 @@
             return (
                 <section id="oferta" className="py-20 bg-darker">
                     <div className="max-w-4xl mx-auto px-4 text-center">
-                        <div className="bg-darker border-2 border-primary/50 rounded-[40px] p-10 relative overflow-hidden shadow-2xl">
-                            <h3 className="font-orbitron text-2xl font-bold mb-4 uppercase tracking-widest text-primary italic">Oferta de Lanzamiento</h3>
-                            <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-10">
-                                <span className="text-4xl text-gray-500 line-through font-orbitron">$199 USD</span>
+                        <div className="bg-darker border-2 border-primary/50 rounded-[30px] md:rounded-[40px] p-6 md:p-10 relative overflow-hidden shadow-2xl">
+                            <h3 className="font-orbitron text-xl md:text-2xl font-bold mb-4 uppercase tracking-widest text-primary italic">Oferta de Lanzamiento</h3>
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-10">
+                                <span className="text-3xl md:text-4xl text-gray-500 line-through font-orbitron">$199 USD</span>
                                 <div className="flex flex-col">
-                                    <span className="text-7xl md:text-8xl font-orbitron font-black text-white">$99.99</span>
-                                    <span className="text-xs uppercase tracking-[0.3em] font-orbitron font-bold text-primary">Inversión única</span>
+                                    <span className="text-5xl md:text-8xl font-orbitron font-black text-white leading-tight">$99.99</span>
+                                    <span className="text-[10px] uppercase tracking-[0.3em] font-orbitron font-bold text-primary">Inversión única</span>
                                 </div>
                             </div>
                             <div className="max-w-md mx-auto mb-10">
-                                <p className="text-gray-300 mb-4 font-inter text-sm uppercase tracking-wider">Copia tu cupón de descuento adicional:</p>
-                                <div onClick={handleCopy} className="cursor-pointer bg-dark border-2 border-dashed border-primary/50 p-5 rounded-2xl flex items-center justify-between transition-all hover:bg-white/5">
-                                    <span className="text-3xl font-orbitron font-black tracking-widest uppercase">{couponCode}</span>
+                                <p className="text-gray-300 mb-4 font-inter text-[10px] md:text-xs uppercase tracking-wider">Copia tu cupón de descuento adicional:</p>
+                                <div onClick={handleCopy} className="cursor-pointer bg-dark border-2 border-dashed border-primary/40 p-4 md:p-5 rounded-2xl flex items-center justify-between transition-all hover:bg-white/5 active:scale-95">
+                                    <span className="text-xl md:text-3xl font-orbitron font-black tracking-widest uppercase">{couponCode}</span>
                                     <span className="text-[10px] font-bold text-primary">{copied ? '¡COPIADO!' : 'CLIC PARA COPIAR'}</span>
                                 </div>
                             </div>
-                            <button className="w-full orange-gradient text-dark font-orbitron font-bold py-6 px-12 rounded-2xl text-2xl animate-pulse-custom shadow-2xl shadow-primary/40 transition-all hover:scale-105">
-                                ¡SÍ, QUIERO DOMINAR MI MOTO!
-                            </button>
+                            
+                            {/* ENLACE DE VENTA HOTMART */}
+                            <a href="https://pay.hotmart.com/TU_ID_AQUI?checkoutMode=10" target="_blank" className="block w-full">
+                                <button className="w-full orange-gradient text-dark font-orbitron font-bold py-5 md:py-6 px-4 md:px-12 rounded-2xl text-xl md:text-2xl animate-pulse-custom shadow-2xl shadow-primary/40 transition-all hover:scale-105 active:scale-95">
+                                    ¡SÍ, QUIERO DOMINAR MI MOTO!
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -301,7 +295,7 @@
             <footer className="bg-darker py-20 border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <div className="flex justify-center mb-10"><Logo scale={0.9} opacity={0.6} /></div>
-                    <p className="text-slate-500 text-xs max-w-2xl mx-auto mb-10 leading-relaxed font-inter uppercase tracking-tighter">Este sitio no es parte de Meta Platforms o Google LLC. Los resultados varían según la dedicación del alumno.</p>
+                    <p className="text-slate-500 text-[10px] max-w-2xl mx-auto mb-10 leading-relaxed font-inter uppercase tracking-tight">Este sitio no es parte de Meta Platforms o Google LLC. Los resultados varían según la dedicación del alumno.</p>
                     <div className="h-px w-20 bg-primary/30 mx-auto mb-8"></div>
                     <p className="text-[10px] text-slate-600 uppercase font-orbitron tracking-[0.4em]">
                         © {new Date().getFullYear()} ASCENSO MOTO.
@@ -318,12 +312,336 @@
                 <Syllabus />
                 <Offer />
                 <Footer />
+                
+                {/* BOTÓN FLOTANTE WHATSAPP */}
+                <a 
+                    href="https://wa.me/TU_NUMERO_AQUI?text=Hola,%20vengo%20de%20la%20página%20y%20tengo%20dudas%20con%20Ascenso%20Motor" 
+                    target="_blank"
+                    className="fixed bottom-6 right-6 z-50 bg-[#25D366] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-90 flex items-center justify-center border-2 border-white/10"
+                    style={{ boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}
+                >
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascenso Motor | MasterClass Mecánica de Motos</title>
+    
+    <!-- Scripts Externos -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF6B00',
+                        silver: '#E5E7EB',
+                        metallic: '#94A3B8',
+                        dark: '#0A0E14',
+                        darker: '#05070A',
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0A0E14;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            background-image: radial-gradient(circle at 50% 0%, #1a1f2e 0%, #0a0e14 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .text-glow-silver {
+            text-shadow: 0 0 15px rgba(229, 231, 235, 0.3);
+        }
+        .silver-gradient {
+            background: linear-gradient(180deg, #FFFFFF 0%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-top: 0.15em;
+            padding-bottom: 0.15em;
+            display: inline-block;
+            line-height: 1.1;
+        }
+        .orange-gradient {
+            background: linear-gradient(135deg, #FF6B00 0%, #CC5500 100%);
+        }
+        .card-industrial {
+            background: linear-gradient(145deg, #161B26, #0A0E14);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        .card-industrial:hover {
+            border-color: rgba(255, 107, 0, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        @keyframes pulse-orange {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        .animate-pulse-custom {
+            animation: pulse-orange 2s infinite ease-in-out;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0A0E14; }
+        ::-webkit-scrollbar-thumb { background: #1a1f2e; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF6B00; }
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const Logo = ({ scale = 1, opacity = 0.8 }) => (
+            <div className="flex flex-col items-center justify-center leading-none transform origin-left" style={{ transform: `scale(${scale})` }}>
+                <svg width="60" height="30" viewBox="0 0 60 30" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-0.5" style={{ opacity }}>
+                    <path d="M5 30C5 16.1929 16.1929 5 30 5C43.8071 5 55 16.1929 55 30" stroke="#94A3B8" strokeWidth="4" strokeLinecap="round" />
+                    <path d="M30 5V12M15 12L19 16M45 12L41 16" stroke="#94A3B8" strokeWidth="3" strokeLinecap="round" />
+                    <circle cx="30" cy="30" r="5" fill="#94A3B8" />
+                </svg>
+                <div className="flex flex-col items-center">
+                    <span className="font-orbitron font-black text-xl tracking-[0.2em] text-white">ASCENSO</span>
+                    <div className="flex items-center w-full mt-0.5">
+                        <div className="h-[1px] flex-1 bg-white/30"></div>
+                        <span className="font-orbitron font-bold text-[8px] mx-2 tracking-[0.5em] text-white/80">MOTO</span>
+                        <div className="h-[1px] flex-1 bg-white/30"></div>
+                    </div>
+                </div>
             </div>
         );
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-<script type="module" src="/index.tsx"></script>
-</body>
-</html>
+        const Header = () => (
+            <nav className="sticky top-0 z-50 w-full bg-dark/80 backdrop-blur-xl border-b border-white/5 py-3">
+                <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
+                    <Logo scale={0.8} />
+                    <button 
+                        onClick={() => document.getElementById('oferta').scrollIntoView()}
+                        className="bg-primary hover:bg-orange-600 text-dark font-inter font-bold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg shadow-primary/20 text-xs uppercase tracking-wider"
+                    >
+                        ¡Inscribirme Ya!
+                    </button>
+                </div>
+            </nav>
+        );
+
+        const Hero = () => (
+            <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-10 pb-20">
+                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-400/5 rounded-full blur-[150px] -z-10"></div>
+                <div className="max-w-5xl mx-auto px-4 text-center">
+                    <div className="inline-block px-4 py-1 mb-8 border border-white/10 rounded-lg bg-white/5 text-silver text-[10px] font-orbitron font-bold uppercase tracking-[0.3em] animate-pulse">
+                        MasterClass Mecánica Elite
+                    </div>
+                    <h1 className="font-orbitron text-4xl md:text-7xl font-black mb-8 leading-[1.2] text-glow-silver">
+                        <span className="silver-gradient">¡NO PERMITAS QUE TE</span> <br />
+                        <span className="text-white italic opacity-90 block my-4">ASALTEN CON UNA</span>
+                        <span className="silver-gradient">LLAVE INGLESA!</span>
+                    </h1>
+                    <p className="font-inter text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                        Domina la ingeniería detrás de tu pasión. Ahorra hasta un <span className="text-white font-bold">80% en mantenimientos</span> y garantiza que tu moto rinda al máximo con estándares de competencia.
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <button 
+                            onClick={() => document.getElementById('calculadora').scrollIntoView()}
+                            className="w-full sm:w-auto orange-gradient text-dark font-orbitron font-black py-5 px-12 rounded-xl text-lg shadow-2xl shadow-primary/20 transition-all duration-300 hover:brightness-110 transform hover:-translate-y-1"
+                        >
+                            CALCULAR MI AHORRO
+                        </button>
+                        <button 
+                            onClick={() => document.getElementById('temario').scrollIntoView()}
+                            className="w-full sm:w-auto bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/30 text-white font-orbitron font-bold py-5 px-12 rounded-xl text-lg transition-all duration-300 transform hover:scale-105"
+                        >
+                            VER TEMARIO
+                        </button>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const ROICalculator = () => {
+            const [spending, setSpending] = useState(500);
+            const chartRef = useRef(null);
+            const chartInstance = useRef(null);
+            const courseCost = 99.99;
+            const yearlySavings = spending - courseCost;
+
+            useEffect(() => {
+                if (chartRef.current) {
+                    if (chartInstance.current) chartInstance.current.destroy();
+                    const ctx = chartRef.current.getContext('2d');
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Tu Gasto Actual', 'Inversión MasterClass'],
+                            datasets: [{
+                                label: 'Costo Anual (USD)',
+                                data: [spending, courseCost],
+                                backgroundColor: ['rgba(255, 255, 255, 0.1)', '#FF6B00'],
+                                borderColor: ['rgba(255, 255, 255, 0.5)', '#FF6B00'],
+                                borderWidth: 2,
+                                borderRadius: 8,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: 'rgba(255, 255, 255, 0.5)' } },
+                                x: { grid: { display: false }, ticks: { color: 'white' } }
+                            }
+                        }
+                    });
+                }
+                return () => chartInstance.current?.destroy();
+            }, [spending]);
+
+            return (
+                <section id="calculadora" className="py-20 bg-darker">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <h2 className="font-orbitron text-2xl md:text-5xl font-bold mb-4 uppercase">EL COSTO DE LA <span className="text-primary">IGNORANCIA</span></h2>
+                            <p className="text-gray-400 font-inter">Compara cuánto estás perdiendo cada año por no saber arreglar tu propia moto.</p>
+                        </div>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <div className="space-y-8 p-8 card-industrial rounded-3xl">
+                                <div>
+                                    <label className="block font-orbitron text-sm uppercase mb-4 tracking-widest text-primary">Gasto Anual: <span className="text-white text-xl md:text-2xl ml-2">${spending} USD</span></label>
+                                    <input type="range" min="150" max="2000" step="50" value={spending} onChange={(e) => setSpending(parseInt(e.target.value))} className="w-full h-2 bg-dark rounded-lg appearance-none cursor-pointer accent-primary" />
+                                </div>
+                                <div className="bg-white/5 p-6 rounded-2xl border border-white/5 text-center">
+                                    <p className="text-sm text-gray-400 uppercase font-orbitron mb-1">Ahorro potencial el 1er año:</p>
+                                    <p className="text-4xl md:text-5xl font-black font-orbitron text-primary" style={{ textShadow: '0 0 10px rgba(255,107,0,0.4)' }}>
+                                        ${yearlySavings.toFixed(2)}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="h-[350px] md:h-[400px] w-full card-industrial p-6 rounded-3xl relative overflow-hidden">
+                                <canvas ref={chartRef}></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Syllabus = () => {
+            const modules = [
+                { title: "Mecánica Preventiva", desc: "Mantenimiento diario: frenos, cadena, aceites y filtros. Evita fallos críticos." },
+                { title: "Inyección EFI", desc: "Diagnóstico avanzado de sensores y bombas. Domina la tecnología moderna." },
+                { title: "Sistema Eléctrico", desc: "Lectura de diagramas, bobinas, CDI y baterías. Soluciones reales." },
+                { title: "Optimización de Gastos", desc: "Estrategias para comprar repuestos de calidad sin pagar sobreprecios." }
+            ];
+
+            return (
+                <section id="temario" className="py-20 bg-dark">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="mb-12 border-b border-primary/20 pb-8">
+                            <h2 className="font-orbitron text-3xl md:text-5xl font-black mb-4 uppercase">TEMARIO <span className="text-primary italic">PROFESIONAL</span></h2>
+                            <p className="text-gray-400">Diseñado para que domines tu máquina en tiempo récord.</p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {modules.map((m, idx) => (
+                                <div key={idx} className="card-industrial p-8 rounded-2xl transition-all duration-300 hover:-translate-y-2 group">
+                                    <h3 className="font-orbitron font-bold text-xl mb-3 uppercase text-primary">{m.title}</h3>
+                                    <p className="font-inter text-gray-400 text-sm leading-relaxed">{m.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Offer = () => {
+            const [copied, setCopied] = useState(false);
+            const couponCode = "031016";
+            const handleCopy = () => {
+                navigator.clipboard.writeText(couponCode);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+            };
+
+            return (
+                <section id="oferta" className="py-20 bg-darker">
+                    <div className="max-w-4xl mx-auto px-4 text-center">
+                        <div className="bg-darker border-2 border-primary/50 rounded-[30px] md:rounded-[40px] p-6 md:p-10 relative overflow-hidden shadow-2xl">
+                            <h3 className="font-orbitron text-xl md:text-2xl font-bold mb-4 uppercase tracking-widest text-primary italic">Oferta de Lanzamiento</h3>
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-10">
+                                <span className="text-3xl md:text-4xl text-gray-500 line-through font-orbitron">$199 USD</span>
+                                <div className="flex flex-col">
+                                    <span className="text-5xl md:text-8xl font-orbitron font-black text-white leading-tight">$99.99</span>
+                                    <span className="text-[10px] uppercase tracking-[0.3em] font-orbitron font-bold text-primary">Inversión única</span>
+                                </div>
+                            </div>
+                            <div className="max-w-md mx-auto mb-10">
+                                <p className="text-gray-300 mb-4 font-inter text-[10px] md:text-xs uppercase tracking-wider">Copia tu cupón de descuento adicional:</p>
+                                <div onClick={handleCopy} className="cursor-pointer bg-dark border-2 border-dashed border-primary/40 p-4 md:p-5 rounded-2xl flex items-center justify-between transition-all hover:bg-white/5 active:scale-95">
+                                    <span className="text-xl md:text-3xl font-orbitron font-black tracking-widest uppercase">{couponCode}</span>
+                                    <span className="text-[10px] font-bold text-primary">{copied ? '¡COPIADO!' : 'CLIC PARA COPIAR'}</span>
+                                </div>
+                            </div>
+                            
+                            {/* ENLACE DE VENTA HOTMART */}
+                            <a href="https://app.komvii.com/checkout/qFCpno9XDG73GopFh8wG8n8W1mIqdhiK" target="_blank" className="block w-full">
+                                <button className="w-full orange-gradient text-dark font-orbitron font-bold py-5 md:py-6 px-4 md:px-12 rounded-2xl text-xl md:text-2xl animate-pulse-custom shadow-2xl shadow-primary/40 transition-all hover:scale-105 active:scale-95">
+                                    ¡SÍ, QUIERO DOMINAR MI MOTO!
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="bg-darker py-20 border-t border-white/5">
+                <div className="max-w-7xl mx-auto px-4 text-center">
+                    <div className="flex justify-center mb-10"><Logo scale={0.9} opacity={0.6} /></div>
+                    <p className="text-slate-500 text-[10px] max-w-2xl mx-auto mb-10 leading-relaxed font-inter uppercase tracking-tight">Este sitio no es parte de Meta Platforms o Google LLC. Los resultados varían según la dedicación del alumno.</p>
+                    <div className="h-px w-20 bg-primary/30 mx-auto mb-8"></div>
+                    <p className="text-[10px] text-slate-600 uppercase font-orbitron tracking-[0.4em]">
+                        © {new Date().getFullYear()} ASCENSO MOTO.
+                    </p>
+                </div>
+            </footer>
+        );
+
+        const App = () => (
+            <div className="min-h-screen bg-dark text-white selection:bg-primary selection:text-white">
+                <Header />
+                <Hero />
+                <ROICalculator />
+                <Syllabus />
+                <Offer />
+                <Footer />
+                
+                {/* BOTÓN FLOTANTE WHATSAPP */}
+                <a 
+                    href="https://wa.me/TU_NUMERO_AQUI?text=Hola,%20vengo%20de%20la%20página%20y%20tengo%20dudas%20con%20Ascenso%20Motor" 
+                    target="_blank"
+                    className="fixed bottom-6 right-6 z-50 bg-[#25D366] p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 active:scale-90 flex items-center justify-center border-2 border-white/10"
+                    style={{ boxShadow: '0 10px 25px rgba(0,0,0,0.5)' }}
+                >
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.
