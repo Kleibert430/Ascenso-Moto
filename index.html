@@ -60,12 +60,33 @@
             background: linear-gradient(145deg, #161B26, #0A0E14);
             border: 1px solid rgba(148, 163, 184, 0.1);
         }
+        
+        /* Animación personalizada para el badge de la oferta */
+        @keyframes custom-bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, 20px); }
+            60% { transform: translate(-50%, 10px); }
+        }
+        .animate-bounce-heavy {
+            animation: custom-bounce 2.5s infinite;
+        }
+
         @keyframes pulse-orange {
             0%, 100% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.05); opacity: 0.9; }
         }
         .animate-pulse-custom { animation: pulse-orange 2s infinite ease-in-out; }
+        
         html { scroll-behavior: smooth; }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .faq-item.open .faq-answer {
+            max-height: 250px;
+        }
     </style>
 </head>
 <body>
@@ -215,31 +236,94 @@
             );
         };
 
-        // COMPONENTE DEL CONTADOR
+        const Testimonials = () => {
+            const reviews = [
+                { name: "Carlos R.", city: "CDMX", text: "Increíble. Llevaba meses gastando en el taller por un fallo eléctrico y con el módulo 3 lo solucioné en una tarde. ¡Ya recuperé la inversión!", stars: 5 },
+                { name: "Mateo S.", city: "Medellín", text: "La parte de Inyección EFI es oro puro. No encontré esta información tan clara en ningún otro lado. Muy recomendado.", stars: 5 },
+                { name: "Jorge L.", city: "Lima", text: "Soy novato y me daba miedo tocar mi moto. Las clases paso a paso me dieron la confianza para hacer yo mismo el mantenimiento.", stars: 5 }
+            ];
+
+            return (
+                <section className="py-20 bg-darker">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <h2 className="font-orbitron text-2xl md:text-4xl font-bold mb-12 text-center uppercase tracking-widest">VOCES DE LA <span className="text-primary">COMUNIDAD</span></h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {reviews.map((r, i) => (
+                                <div key={i} className="card-industrial p-8 rounded-3xl border-l-4 border-l-primary relative">
+                                    <div className="flex text-primary mb-4 text-xs">
+                                        {[...Array(r.stars)].map((_, s) => <span key={s}>★</span>)}
+                                    </div>
+                                    <p className="font-inter text-gray-300 italic mb-6 leading-relaxed text-sm">"{r.text}"</p>
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-orbitron font-bold text-primary text-xs border border-primary/40">
+                                            {r.name[0]}
+                                        </div>
+                                        <div>
+                                            <p className="font-orbitron text-xs font-bold text-white uppercase">{r.name}</p>
+                                            <p className="text-[10px] text-gray-500 font-inter">{r.city}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const FAQ = () => {
+            const [activeIdx, setActiveIdx] = useState(null);
+            const faqs = [
+                { q: "¿Necesito conocimientos previos?", a: "Para nada. El curso está diseñado para llevarte de 0 a 100, explicando cada concepto técnico de forma sencilla y visual." },
+                { q: "¿Qué herramientas necesito comprar?", a: "Empezaremos con herramientas básicas que ya tienes en casa. A medida que avances, te daremos una lista inteligente para que compres solo lo necesario sin gastar de más." },
+                { q: "¿El acceso es permanente?", a: "Sí, el acceso es de por vida. Puedes ver las clases las veces que quieras, a tu ritmo y en cualquier dispositivo." },
+                { q: "¿Cómo accedo al descuento?", a: "Solo debes copiar el código '031016' que aparece en la sección de oferta y aplicarlo al momento de realizar tu pago en Hotmart." }
+            ];
+
+            return (
+                <section className="py-20 bg-dark">
+                    <div className="max-w-3xl mx-auto px-4">
+                        <h2 className="font-orbitron text-2xl md:text-4xl font-bold mb-12 text-center uppercase tracking-widest">PREGUNTAS <span className="text-primary">FRECUENTES</span></h2>
+                        <div className="space-y-4">
+                            {faqs.map((f, i) => (
+                                <div key={i} className={`card-industrial rounded-xl overflow-hidden faq-item ${activeIdx === i ? 'open' : ''}`}>
+                                    <button 
+                                        onClick={() => setActiveIdx(activeIdx === i ? null : i)}
+                                        className="w-full p-5 text-left flex justify-between items-center bg-white/5 hover:bg-white/10 transition-colors"
+                                    >
+                                        <span className="font-orbitron text-xs md:text-sm font-bold uppercase tracking-wider">{f.q}</span>
+                                        <span className={`text-primary text-xl transition-transform ${activeIdx === i ? 'rotate-45' : ''}`}>+</span>
+                                    </button>
+                                    <div className="faq-answer">
+                                        <div className="p-5 text-gray-400 text-sm font-inter leading-relaxed bg-darker/50">
+                                            {f.a}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
         const CountdownTimer = () => {
             const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
-
             useEffect(() => {
                 const target = new Date();
-                target.setHours(23, 59, 59, 0); // Final de hoy
-
+                target.setHours(23, 59, 59, 0);
                 const timer = setInterval(() => {
                     const now = new Date();
                     const diff = target.getTime() - now.getTime();
-                    
-                    if (diff <= 0) {
-                        target.setDate(target.getDate() + 1); // Reinicia para mañana
-                    } else {
-                        setTimeLeft({
-                            hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-                            minutes: Math.floor((diff / 1000 / 60) % 60),
-                            seconds: Math.floor((diff / 1000) % 60)
-                        });
-                    }
+                    if (diff <= 0) target.setDate(target.getDate() + 1);
+                    else setTimeLeft({
+                        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+                        minutes: Math.floor((diff / 1000 / 60) % 60),
+                        seconds: Math.floor((diff / 1000) % 60)
+                    });
                 }, 1000);
                 return () => clearInterval(timer);
             }, []);
-
             const TimeUnit = ({ value, label }) => (
                 <div className="flex flex-col items-center mx-2">
                     <div className="bg-dark px-3 py-2 rounded-lg border border-primary/30 min-w-[50px]">
@@ -248,7 +332,6 @@
                     <span className="text-[8px] uppercase font-orbitron mt-1 text-primary tracking-widest">{label}</span>
                 </div>
             );
-
             return (
                 <div className="flex justify-center items-center mb-8">
                     <TimeUnit value={timeLeft.hours} label="Horas" />
@@ -264,24 +347,27 @@
             const [copied, setCopied] = useState(false);
             const couponCode = "031016";
             const handleCopy = () => {
-                navigator.clipboard.writeText(couponCode);
+                const el = document.createElement('textarea');
+                el.value = couponCode;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
             };
-
             return (
-                <section id="oferta" className="py-20 bg-darker">
+                <section id="oferta" className="py-24 bg-darker overflow-visible">
                     <div className="max-w-4xl mx-auto px-4 text-center">
-                        <div className="bg-darker border-2 border-primary/50 rounded-[30px] md:rounded-[40px] p-6 md:p-10 shadow-2xl relative">
-                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-dark font-orbitron font-black px-6 py-1 rounded-full text-xs animate-bounce">
+                        <div className="bg-darker border-2 border-primary/50 rounded-[30px] md:rounded-[40px] p-6 md:p-10 pt-16 md:pt-16 shadow-2xl relative">
+                            {/* Badge con animación ajustada */}
+                            <div className="absolute -top-6 left-1/2 bg-primary text-dark font-orbitron font-black px-8 py-2 rounded-full text-xs md:text-sm z-10 shadow-xl animate-bounce-heavy whitespace-nowrap">
                                 ¡LA OFERTA TERMINA PRONTO!
                             </div>
                             
-                            <h3 className="font-orbitron text-xl md:text-2xl font-bold mb-6 uppercase text-primary italic">Oferta de Lanzamiento</h3>
-                            
-                            {/* EL CONTADOR VA AQUÍ */}
+                            <h3 className="font-orbitron text-xl md:text-2xl font-bold mb-6 uppercase text-primary italic">Inscripciones Abiertas</h3>
                             <CountdownTimer />
-
+                            
                             <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-10">
                                 <span className="text-3xl text-gray-500 line-through font-orbitron">$199 USD</span>
                                 <div className="flex flex-col">
@@ -292,13 +378,13 @@
 
                             <div className="max-w-md mx-auto mb-10">
                                 <p className="text-gray-300 mb-4 font-inter text-[10px] uppercase tracking-wider">Tu cupón de descuento adicional:</p>
-                                <div onClick={handleCopy} className="cursor-pointer bg-dark border-2 border-dashed border-primary/40 p-4 rounded-2xl flex items-center justify-between hover:bg-white/5 active:scale-95 transition-all">
+                                <div onClick={handleCopy} className="cursor-pointer bg-dark border-2 border-dashed border-primary/40 p-4 rounded-2xl flex items-center justify-between hover:bg-white/5 transition-all">
                                     <span className="text-2xl font-orbitron font-black tracking-widest">{couponCode}</span>
                                     <span className="text-[10px] font-bold text-primary">{copied ? '¡COPIADO!' : 'CLIC PARA COPIAR'}</span>
                                 </div>
                             </div>
-                            
-                            <a href="https://pay.hotmart.com/TU_ID_AQUI?checkoutMode=10" target="_blank" className="block w-full">
+
+                            <a href="https://app.komvii.com/checkout/qFCpno9XDG73GopFh8wG8n8W1mIqdhiK" target="_blank" className="block w-full">
                                 <button className="w-full orange-gradient text-dark font-orbitron font-bold py-6 px-4 rounded-2xl text-xl md:text-2xl animate-pulse-custom shadow-2xl shadow-primary/40 hover:scale-105 transition-all">
                                     ¡SÍ, QUIERO DOMINAR MI MOTO!
                                 </button>
@@ -314,7 +400,7 @@
                 <div className="max-w-7xl mx-auto px-4 text-center">
                     <Logo scale={0.9} opacity={0.6} />
                     <p className="text-slate-500 text-[10px] mt-10 mb-10 font-inter uppercase tracking-tight">Este sitio no es parte de Meta o Google. Los resultados varían según el alumno.</p>
-                    <p className="text-[10px] text-slate-600 uppercase font-orbitron tracking-[0.4em]">© 2025 ASCENSO MOTO.</p>
+                    <p className="text-[10px] text-slate-600 uppercase font-orbitron tracking-[0.4em]">© 2026 ASCENSO MOTO.</p>
                 </div>
             </footer>
         );
@@ -325,14 +411,12 @@
                 <Hero />
                 <ROICalculator />
                 <Syllabus />
+                <Testimonials />
+                <FAQ />
                 <Offer />
                 <Footer />
-                
-                {/* WHATSAPP FLOTANTE */}
                 <a href="https://wa.me/TU_NUMERO_AQUI" target="_blank" className="fixed bottom-6 right-6 z-50 bg-[#25D366] p-4 rounded-full shadow-2xl hover:scale-110 active:scale-90 transition-all border-2 border-white/10">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </a>
             </div>
         );
